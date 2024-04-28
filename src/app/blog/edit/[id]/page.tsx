@@ -25,16 +25,6 @@ const getBlogById = async (id: number) => {
   return data.post;
 };
 
-const deleteBlog = async (id: number) => {
-  const res = await fetch(`http://localhost:3000/api/blog/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  return res.json();
-};
-
 const EditPost = ({ params }: { params: { id: number } }) => {
   const router = useRouter();
 
@@ -51,13 +41,6 @@ const EditPost = ({ params }: { params: { id: number } }) => {
       params.id
     ); //authorId: 1
 
-    router.push("/");
-    router.refresh();
-  };
-
-  //削除ここじゃない
-  const handleDelete = async () => {
-    await deleteBlog(params.id);
     router.push("/");
     router.refresh();
   };
@@ -85,7 +68,9 @@ const EditPost = ({ params }: { params: { id: number } }) => {
           >
             戻る
           </Link>
-          <h1 className="text-5xl font-bold flex-grow text-center">New Blog</h1>
+          <h1 className="text-5xl font-bold flex-grow text-center">
+            Edit Blog
+          </h1>
         </div>
         <form onSubmit={handleSubmit} className="flex flex-col w-2/3 pb-5">
           <input
@@ -100,7 +85,7 @@ const EditPost = ({ params }: { params: { id: number } }) => {
             className="border-2 border-gray-500 p-2 m-2"
           />
           <button className="m-auto px-5 py-1 border-2 rounded-lg text-green-800 border-green-700 bg-green-100">
-            投稿
+            修正投稿
           </button>
         </form>
       </div>

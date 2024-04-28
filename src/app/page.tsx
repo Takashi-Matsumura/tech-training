@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { PostType } from "./types";
 import { formatDate } from "@/features/utils/myDate";
@@ -13,6 +15,18 @@ async function fetchAllBlogs() {
 export default async function Home() {
   const posts = await fetchAllBlogs();
   //console.log(posts);
+
+  const handleDELETE = async (post: PostType) => {
+    const response = await fetch(`/api/blog/${post.id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      console.error("Failed to delete");
+      return;
+    }
+    location.reload();
+  };
 
   return (
     <main className="flex flex-col justify-center items-center p-5">
@@ -43,12 +57,12 @@ export default async function Home() {
                   >
                     修正
                   </Link>
-                  <Link
-                    href={`/blog/delete/${post.id}`}
+                  <button
+                    onClick={() => handleDELETE(post)}
                     className="px-2 py-1 border-2 rounded-lg text-red-800 border-red-700 bg-red-100"
                   >
                     削除
-                  </Link>
+                  </button>
                 </div>
               </div>
               <h2 className="text-lg">
