@@ -24,7 +24,7 @@ export default async function Home() {
         laboriosam ad?
       </p>
       <Link
-        href="/blog"
+        href="/blog/create"
         className="px-2 py-1 border-2 rounded-lg text-green-800 border-green-700 bg-green-100"
       >
         Blog投稿
