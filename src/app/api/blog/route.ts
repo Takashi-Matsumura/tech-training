@@ -22,3 +22,19 @@ export const GET = async (req: Request, res: NextResponse) => {
     await prisma.$disconnect();
   }
 };
+
+export const POST = async (req: Request, res: NextResponse) => {
+  try {
+    const { title, content, authorId } = await req.json();
+
+    await main();
+    const post = await prisma.post.create({
+      data: { title, content, authorId },
+    });
+    return NextResponse.json({ message: "Success", post }, { status: 201 });
+  } catch (err) {
+    return NextResponse.json({ message: "Failed", err }, { status: 500 });
+  } finally {
+    await prisma.$disconnect();
+  }
+};
