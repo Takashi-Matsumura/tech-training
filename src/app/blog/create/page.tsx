@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useRef } from "react";
 
 const postBlog = async (
@@ -20,6 +21,8 @@ const postBlog = async (
 };
 
 const PostBlog = () => {
+  const router = useRouter();
+
   const titleRef = useRef<HTMLInputElement | null>(null);
   const contentRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -27,6 +30,9 @@ const PostBlog = () => {
     e.preventDefault();
 
     await postBlog(titleRef.current?.value, contentRef.current?.value, 1); //authorId: 1
+
+    router.push("/");
+    router.refresh();
   };
 
   return (
