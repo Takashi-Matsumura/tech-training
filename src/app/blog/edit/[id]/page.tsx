@@ -25,6 +25,16 @@ const getBlogById = async (id: number) => {
   return data.post;
 };
 
+const deleteBlog = async (id: number) => {
+  const res = await fetch(`http://localhost:3000/api/blog/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return res.json();
+};
+
 const EditPost = ({ params }: { params: { id: number } }) => {
   const router = useRouter();
 
@@ -41,6 +51,13 @@ const EditPost = ({ params }: { params: { id: number } }) => {
       params.id
     ); //authorId: 1
 
+    router.push("/");
+    router.refresh();
+  };
+
+  //削除ここじゃない
+  const handleDelete = async () => {
+    await deleteBlog(params.id);
     router.push("/");
     router.refresh();
   };
